@@ -31,9 +31,13 @@ const findTimestamp2 = (a, b, lcmA, lcmB) => {
 const processTimestamps = (timestamps, lcms) => {
     const newTimestamps = []
     const newLcms = []
-    for (let i = 1; i < timestamps.length; i++) {
-        newTimestamps.push(findTimestamp2(timestamps[0], timestamps[i], lcms[0], lcms[i]))
-        newLcms.push(lcm(lcms[0], lcms[i]))
+    for (let i = 0; i < timestamps.length; i += 2) {
+        newTimestamps.push(findTimestamp2(timestamps[i], timestamps[i+1], lcms[i], lcms[i+1]))
+        newLcms.push(lcm(lcms[i], lcms[i+1]))
+    }
+    if (timestamps.length % 2 === 1) {
+        newTimestamps.push(timestamps[timestamps.length - 1])
+        newLcms.push(lcms[lcms.length - 1])
     }
     if (newTimestamps.length === 1) {
         return newTimestamps[0]
